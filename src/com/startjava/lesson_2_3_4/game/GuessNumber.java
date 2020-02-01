@@ -1,5 +1,6 @@
 package com.startjava.lesson_2_3_4.game;
 
+import java.util.Arrays;
 import java.util.Scanner; // импорт сканера
 
 
@@ -8,8 +9,6 @@ public class GuessNumber {
     private static int gameNumber = (int) (Math.random() * 101);
     private Player player1;
     private Player player2;
-    private int[] arrayOfFirstPlayer = new int[10];
-    private int[] arrayOfSecondPlayer = new int[10];
 
     public GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
@@ -24,7 +23,7 @@ public class GuessNumber {
                 System.out.println("У вас осталось " + (10 - i) + " попыток");
                 System.out.println("Первый игрок введите число : ");
                 player1.setNumber(scan.nextInt());
-                arrayOfFirstPlayer[i] = player1.getNumber();
+                player1.arrayOfPlayer[i] = player1.getNumber();
                 if (player1.getNumber() == gameNumber) {
                     System.out.println("Поздравляем!!!Победил " + player1.getName() + "! Это было число  - " + player1.getNumber());
                     System.out.println("Игрок " + player1.getName() + " угадал число " + player1.getNumber() + " с " + i + " попытки");
@@ -33,7 +32,7 @@ public class GuessNumber {
 
                 System.out.println("Второй игрок введите число : ");
                 player2.setNumber(scan.nextInt());
-                arrayOfSecondPlayer[i] = player2.getNumber();
+                player2.arrayOfPlayer[i] = player2.getNumber();
                 if (player2.getNumber() == gameNumber) {
                     System.out.println("Поздравляем!!!Победил " + player2.getName() + "! Это было число  - " + player2.getNumber());
                     System.out.println("Игрок " + player2.getName() + " угадал число " + player2.getNumber() + " с " + i + " попытки");
@@ -54,20 +53,22 @@ public class GuessNumber {
                 System.out.println("Пока никто не угадал!Попробуйте еще.\n");
             }
 
-            if (player1.getNumber() != gameNumber || player2.getNumber() != gameNumber) {
+            if (player1.getNumber() != gameNumber && player2.getNumber() != gameNumber) {
                 System.out.println("У " + player1.getName() + " закончились попытки");
                 System.out.println(player1.getName() + " называл следующие цифры: ");
-                for (int num : arrayOfFirstPlayer) {
+                for (int num : player1.arrayOfPlayer) {
                     System.out.print(num + " ");
                 }
                 System.out.println();
+                Arrays.fill(player1.arrayOfPlayer, 0);
 
-                System.out.println("У " + player2.getName() + " закончились попытки");
+                        System.out.println("У " + player2.getName() + " закончились попытки");
                 System.out.println(player2.getName() + " называл следующие цифры: ");
-                for (int num : arrayOfSecondPlayer) {
+                for (int num : player2.arrayOfPlayer) {
                     System.out.print(num + " ");
                 }
                 System.out.println();
+                Arrays.fill(player2.arrayOfPlayer, 0);
             }
             break;
         }
