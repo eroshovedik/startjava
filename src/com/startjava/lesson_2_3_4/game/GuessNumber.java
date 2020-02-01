@@ -38,39 +38,34 @@ public class GuessNumber {
                     System.out.println("Игрок " + player2.getName() + " угадал число " + player2.getNumber() + " с " + i + " попытки");
                     break;
                 }
-
-                if (player1.getNumber() < gameNumber) {
-                    System.out.println("Число первого игрока меньше искомого");
-                } else if (player1.getNumber() > gameNumber) {
-                    System.out.println("Число первого игрока больше искомого");
-                }
-
-                if (player2.getNumber() < gameNumber) {
-                    System.out.println("Число второго игрока меньше искомого\n");
-                } else if (player2.getNumber() > gameNumber) {
-                    System.out.println("Число второго игрока больше искомого\n");
-                }
+                help(player1.getNumber(), gameNumber);
+                help(player2.getNumber(), gameNumber);
                 System.out.println("Пока никто не угадал!Попробуйте еще.\n");
             }
 
             if (player1.getNumber() != gameNumber && player2.getNumber() != gameNumber) {
-                System.out.println("У " + player1.getName() + " закончились попытки");
-                System.out.println(player1.getName() + " называл следующие цифры: ");
-                for (int num : player1.arrayOfPlayer) {
-                    System.out.print(num + " ");
-                }
-                System.out.println();
-                Arrays.fill(player1.arrayOfPlayer, 0);
-
-                        System.out.println("У " + player2.getName() + " закончились попытки");
-                System.out.println(player2.getName() + " называл следующие цифры: ");
-                for (int num : player2.arrayOfPlayer) {
-                    System.out.print(num + " ");
-                }
-                System.out.println();
-                Arrays.fill(player2.arrayOfPlayer, 0);
+                notGuess(player1);
+                notGuess(player2);
             }
             break;
         }
+    }
+
+    public void help(int number, int gameNumber) {
+        if (number < gameNumber) {
+            System.out.println("Число второго игрока меньше искомого\n");
+        } else if (number > gameNumber) {
+            System.out.println("Число второго игрока больше искомого\n");
+        }
+    }
+
+    public void notGuess(Player player1) {
+        System.out.println("У " + player1.getName() + " закончились попытки");
+        System.out.println(player1.getName() + " называл следующие цифры: ");
+        for (int num : player1.arrayOfPlayer) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+        Arrays.fill(player1.arrayOfPlayer, 0);
     }
 }
