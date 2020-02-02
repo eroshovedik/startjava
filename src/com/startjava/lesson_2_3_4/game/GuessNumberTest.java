@@ -5,12 +5,10 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Введите имя первого игрока: ");
-        String name1 = scan.next();
-        Player player1 = new Player(name1);
+        Player player1 = new Player(scan.next());
 
         System.out.println("Введите имя второго игрока: ");
-        String name2 = scan.next();
-        Player player2 = new Player(name2);
+        Player player2 = new Player(scan.next());
         String answer = "да";
         GuessNumber game = new GuessNumber(player1,player2);
 
@@ -21,10 +19,9 @@ public class GuessNumberTest {
             System.out.println("Хотите продолжить? [да/нет]: ");
             answer = scan.next();
             switch (answer) {
-                case "да":
-                    continue;
                 case "нет":
                     break;
+                case "да":
                 default:
                     continue;
             }

@@ -1,8 +1,6 @@
 package com.startjava.lesson_2_3_4.game;
 
-import java.util.Arrays;
-import java.util.Scanner; // импорт сканера
-
+import java.util.Scanner;
 
 public class GuessNumber {
 
@@ -21,37 +19,31 @@ public class GuessNumber {
         while (true) {
             for (int i = 0; i < 10; i++) {
                 System.out.println("У вас осталось " + (10 - i) + " попыток");
-                System.out.println("Первый игрок введите число : ");
-                player1.setNumber(scan.nextInt());
-                player1.arrayOfPlayer[i] = player1.getNumber();
+                enterNumber(player1, i);
                 if (player1.getNumber() == gameNumber) {
-                    System.out.println("Поздравляем!!!Победил " + player1.getName() + "! Это было число  - " + player1.getNumber());
-                    System.out.println("Игрок " + player1.getName() + " угадал число " + player1.getNumber() + " с " + i + " попытки");
+                    determineWinner(player1, i);
                     break;
                 }
 
-                System.out.println("Второй игрок введите число : ");
-                player2.setNumber(scan.nextInt());
-                player2.arrayOfPlayer[i] = player2.getNumber();
+                enterNumber(player2, i);
                 if (player2.getNumber() == gameNumber) {
-                    System.out.println("Поздравляем!!!Победил " + player2.getName() + "! Это было число  - " + player2.getNumber());
-                    System.out.println("Игрок " + player2.getName() + " угадал число " + player2.getNumber() + " с " + i + " попытки");
+                    determineWinner(player2, i);
                     break;
                 }
-                help(player1.getNumber(), gameNumber);
-                help(player2.getNumber(), gameNumber);
+                hint(player1.getNumber(), gameNumber);
+                hint(player2.getNumber(), gameNumber);
                 System.out.println("Пока никто не угадал!Попробуйте еще.\n");
             }
 
             if (player1.getNumber() != gameNumber && player2.getNumber() != gameNumber) {
-                notGuess(player1);
-                notGuess(player2);
+                player1.showEnterNumbers();
+                player2.showEnterNumbers();
             }
             break;
         }
     }
 
-    public void help(int number, int gameNumber) {
+    private void hint(int number, int gameNumber) {
         if (number < gameNumber) {
             System.out.println("Число второго игрока меньше искомого\n");
         } else if (number > gameNumber) {
@@ -59,13 +51,15 @@ public class GuessNumber {
         }
     }
 
-    public void notGuess(Player player1) {
-        System.out.println("У " + player1.getName() + " закончились попытки");
-        System.out.println(player1.getName() + " называл следующие цифры: ");
-        for (int num : player1.arrayOfPlayer) {
-            System.out.print(num + " ");
-        }
-        System.out.println();
-        Arrays.fill(player1.arrayOfPlayer, 0);
+    private void enterNumber(Player player, int i) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println(player.getName() + " введите число : ");
+        player.setNumber(scan.nextInt());
+        player.setEnteredNumbers(i, player.getNumber());
+    }
+
+    private void determineWinner(Player player, int i) {
+        System.out.println("Поздравляем!!!Победил " + player.getName() + "! Это было число  - " + player.getNumber());
+        System.out.println("Игрок " + player.getName() + " угадал число " + player.getNumber() + " с " + i + " попытки");
     }
 }

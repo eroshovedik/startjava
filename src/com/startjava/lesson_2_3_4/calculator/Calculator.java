@@ -1,23 +1,23 @@
 package com.startjava.lesson_2_3_4.calculator;
-import java.util.Scanner;
 
 public class Calculator {
+    private String expression;
 
-    public void calculation() {
-        Scanner scan = new Scanner(System.in);
-        while (true) {
-            System.out.println("Введите математическое выражение:");
-            String expression = scan.nextLine();
-            String [] array = expression.split(" ");
-            int number1 = Integer.parseInt(array[0]);
-            int number2 = Integer.parseInt(array[2]);
-            String sing = array[1];
+    public Calculator(String expression) {
+        this.expression = expression;
+    }
+
+    public void calculate() {
+            String[] enteredExpression = expression.split(" ");
+            int number1 = Integer.parseInt(enteredExpression[0]);
+            int number2 = Integer.parseInt(enteredExpression[2]);
+            String sing = enteredExpression[1];
             switch (sing) {
                 case "+":
-                    System.out.println(number1 + number2);
+                    System.out.println(Math.addExact(number1, number2));
                     break;
                 case "-":
-                    System.out.println(number1 - number2);
+                    System.out.println(Math.subtractExact(number1, number2));
                     break;
                 case "*":
                     System.out.println(number1 * number2);
@@ -29,14 +29,8 @@ public class Calculator {
                     System.out.println(number1 % number2);
                     break;
                 case "^":
-                    int num = number1;
-                    for (int i = 1; i < number2; i++) {
-                        number1 *= num;
-                    }
-                    System.out.println(number1);
+                    System.out.println(Math.pow(number1,number2));
                     break;
             }
-            break;
-        }
     }
 }
