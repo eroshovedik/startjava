@@ -9,14 +9,6 @@ public class Player {
         this.name = name;
     }
 
-    public int[] getEnteredNumbers() {
-        return enteredNumbers;
-    }
-
-    public void setEnteredNumber(int i) {
-        this.enteredNumbers[i] = number;
-    }
-
     public String getName() {
         return name;
     }
@@ -32,4 +24,16 @@ public class Player {
     public void setNumber(int number) {
         this.number = number;
     }
+
+    public int[] getEnteredNumbers() {
+        return enteredNumbers;
+    }
+
+    public void setEnteredNumber(int i) {
+        this.enteredNumbers[i] = number;
+    }
+
+
+
+
 }

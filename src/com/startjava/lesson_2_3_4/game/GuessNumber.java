@@ -16,8 +16,8 @@ public class GuessNumber {
     }
 
     public void start() {
-        for (int i = 1; i < 11; i++) {
-            System.out.println("У вас осталось " + (11 - i) + " попыток");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("У вас осталось " + (10 - i) + " попыток");
             enterNumber(player1, i);
             if (player1.getNumber() == gameNumber) {
                 determineWinner(player1, player2, i);
@@ -35,11 +35,23 @@ public class GuessNumber {
         }
 
         if (player1.getNumber() != gameNumber && player2.getNumber() != gameNumber) {
+            System.out.println("У " + player1.getName() + " закончились попытки");
+            showEnterNumbers(player1, player1.getEnteredNumbers().length);
             System.out.println("У " + player2.getName() + " закончились попытки");
-            showEnterNumberInCaseOfLoss(player1);
-            System.out.println("У " + player2.getName() + " закончились попытки");
-            showEnterNumberInCaseOfLoss(player2);
+            showEnterNumbers(player2, player1.getEnteredNumbers().length);
         }
+    }
+    private void enterNumber(Player player, int i) {
+        System.out.println(player.getName() + " введите число : ");
+        player.setNumber(scan.nextInt());
+        player.setEnteredNumber(i);
+    }
+
+    private void determineWinner(Player player, Player player2, int i) {
+        System.out.println("Поздравляем!!!Победил " + player.getName() + "! Это было число  - " + player.getNumber());
+        System.out.println("Игрок " + player.getName() + " угадал число " + player.getNumber() + " с " + i + " попытки");
+        showEnterNumbers(player,i);
+        showEnterNumbers(player2,i);
     }
 
     private void compare(Player player) {
@@ -50,31 +62,13 @@ public class GuessNumber {
         }
     }
 
-    private void enterNumber(Player player, int i) {
-        System.out.println(player.getName() + " введите число : ");
-        player.setNumber(scan.nextInt());
-        player.setEnteredNumber(i);
-    }
-
-    private void determineWinner(Player player, Player player2, int i) {
-        System.out.println("Поздравляем!!!Победил " + player.getName() + "! Это было число  - " + player.getNumber());
-        System.out.println("Игрок " + player.getName() + " угадал число " + player.getNumber() + " с " + i + " попытки");
-        showEnterNumberInCaseOfLoss(player);
-        showEnterNumberInCaseOfLoss(player2);
-    }
-
-    private void showEnterNumbers(Player player) {
-        for (int num : player.getEnteredNumbers()) {
-            if (num != 0) {
-                System.out.print(num + " ");
-            }
+    private void showEnterNumbers(Player player, int i) {
+        System.out.println(player.getName() + " называл следующие цифры: ");
+        int[] enteredNumbers = Arrays.copyOf(player.getEnteredNumbers(),i);
+        for (int num : enteredNumbers) {
+            System.out.print(num + " ");
         }
         System.out.println();
         Arrays.fill(player.getEnteredNumbers(), 0);
-    }
-
-    private void showEnterNumberInCaseOfLoss(Player player1) {
-        System.out.println(player1.getName() + " называл следующие цифры: ");
-        showEnterNumbers(player1);
     }
 }
